@@ -25,6 +25,7 @@ namespace DapperBeginnerCourse.Repository
                 SELECT 
                     Id,        
                     Title,
+                    Publisher,
                     Developer,
                     Platform,
                     ReleaseDate
