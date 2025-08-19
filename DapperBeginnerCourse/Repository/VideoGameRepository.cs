@@ -62,5 +62,22 @@ namespace DapperBeginnerCourse.Repository
                 return videoGame;
             }
         }
+
+        public async Task AddAsync(VideoGame videoGame)
+        {
+            const string sql = @"
+                INSERT INTO VideoGames
+                    (Title, Publisher, Developer, Platform, ReleaseDate)     
+                VALUES
+                    (@Title, @Publisher, @Developer, @Platform, @ReleaseDate)";
+            using (var connection = GetConnection())
+            {
+                await connection.OpenAsync();
+                DynamicParameters dynamicParameters = new DynamicParameters(videoGame);
+                //dynamicParameters.Add();
+                //await connection.ExecuteByParamsAsync(sql, dynamicParameters);
+                var result = await connection.ExecuteAsync(sql, dynamicParameters);
+            }
+        }
     }
 }
