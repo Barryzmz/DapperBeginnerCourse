@@ -9,5 +9,6 @@ namespace DapperBeginnerCourse.Repository.Interface
         Task<VideoGame> GetByIdAsync(int id);
         Task AddAsync(VideoGame videoGame);
         Task UpdateAsync(VideoGame videoGame);
+        Task DeleteAsync(int id);
     }
 }

@@ -94,5 +94,19 @@ namespace DapperBeginnerCourse.Repository
                 var result = await connection.ExecuteAsync(sql, dynamicParameters);
             }
         }
+
+        public async Task DeleteAsync(int id)
+        {
+            const string sql = @"
+                DELETE FROM VideoGames
+                WHERE Id = @Id";
+            using (var connection = GetConnection())
+            {
+                await connection.OpenAsync();
+                DynamicParameters dynamicParameters = new DynamicParameters();
+                dynamicParameters.Add("@Id", id);
+                var result = await connection.ExecuteAsync(sql, dynamicParameters);
+            }
+        }
     }
 }

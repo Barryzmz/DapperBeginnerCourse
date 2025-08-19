@@ -56,5 +56,21 @@ namespace DapperBeginnerCourse.Controllers
                 return Ok("success");
             }
         }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> DeleteAsync(int id)
+        {
+            var existVideoGame = await _videoGameRepository.GetByIdAsync(id);
+
+            if (existVideoGame == null)
+            {
+                return NotFound("This Video Game does not exist");
+            }
+            else
+            {
+                await _videoGameRepository.DeleteAsync(id);
+                return Ok("success");
+            }
+        }
     }
 }
