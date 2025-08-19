@@ -79,5 +79,20 @@ namespace DapperBeginnerCourse.Repository
                 var result = await connection.ExecuteAsync(sql, dynamicParameters);
             }
         }
+
+        public async Task UpdateAsync(VideoGame videoGame)
+        {
+            const string sql = @"
+                UPDATE VideoGames
+                    SET Title = @Title, Publisher = @Publisher, Developer = @Developer, Platform =  @Platform, ReleaseDate = @ReleaseDate  
+                WHERE
+                    Id = @Id";
+            using (var connection = GetConnection())
+            {
+                await connection.OpenAsync();
+                DynamicParameters dynamicParameters = new DynamicParameters(videoGame);
+                var result = await connection.ExecuteAsync(sql, dynamicParameters);
+            }
+        }
     }
 }

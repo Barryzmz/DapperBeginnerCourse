@@ -40,5 +40,21 @@ namespace DapperBeginnerCourse.Controllers
             await _videoGameRepository.AddAsync(videoGame);
             return Ok("success");
         }
+
+        [HttpPut]
+        public async Task<ActionResult> UpdateAsync(VideoGame videoGame)
+        {
+            var existVideoGame = await _videoGameRepository.GetByIdAsync(videoGame.Id);
+
+            if (existVideoGame == null)
+            {
+                return NotFound("This Video Game does not exist");
+            }
+            else
+            {
+                await _videoGameRepository.UpdateAsync(videoGame);
+                return Ok("success");
+            }
+        }
     }
 }
