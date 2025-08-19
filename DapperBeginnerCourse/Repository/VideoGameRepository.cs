@@ -1,8 +1,10 @@
 ﻿using Dapper;
 using DapperBeginnerCourse.Models;
 using DapperBeginnerCourse.Repository.Interface;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.Data.SqlClient;
 using System.Data.SqlTypes;
+using static Dapper.SqlMapper;
 
 namespace DapperBeginnerCourse.Repository
 {
@@ -37,6 +39,28 @@ namespace DapperBeginnerCourse.Repository
 
             var rows = await connection.QueryAsync<VideoGame>(sql);
             return rows.ToList(); // 轉成 List<VideoGame>
+        }
+
+        public async Task<VideoGame> GetByIdAsync(int id)
+        {
+            const string sql = @"
+                SELECT 
+                    Id,        
+                    Title,
+                    Publisher,
+                    Developer,
+                    Platform,
+                    ReleaseDate
+                FROM VideoGames
+                WHERE Id = @Id";
+            using (var connection = GetConnection())
+            {
+                await connection.OpenAsync();
+                DynamicParameters dynamicParameters = new DynamicParameters();
+                dynamicParameters.Add("@Id", id);
+                var videoGame = await connection.QuerySingleOrDefaultAsync<VideoGame>(sql, dynamicParameters);
+                return videoGame;
+            }
         }
     }
 }

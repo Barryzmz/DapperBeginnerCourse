@@ -20,10 +20,18 @@ namespace DapperBeginnerCourse.Controllers
         public async Task<ActionResult<List<VideoGame>>> GetAllAsync()
         {
             var videoGames = await _videoGameRepository.GetAllAsync();
-            return videoGames;
+            return Ok(videoGames);
         }
 
+        [HttpGet("{id}")]
+        public async Task<ActionResult<VideoGame>> GetByIdAsync(int id)
+        {
+            var videoGame = await _videoGameRepository.GetByIdAsync(id);
+            if (videoGame == null)
+            {
+                return NotFound("This Video Game does not exist");
+            }
+            return Ok(videoGame);
+        }
     }
-
-
 }
