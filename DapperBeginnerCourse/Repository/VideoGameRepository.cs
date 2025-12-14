@@ -41,7 +41,7 @@ namespace DapperBeginnerCourse.Repository
             return rows.ToList(); // 轉成 List<VideoGame>
         }
 
-        public async Task<VideoGame> GetByIdAsync(int id)
+        public async Task<VideoGame?> GetByIdAsync(int id)
         {
             const string sql = @"
                 SELECT 
